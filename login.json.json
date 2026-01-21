@@ -1,0 +1,64 @@
+{
+  "info": {
+    "_postman_id": "fd21e6db-45b6-49b1-b69f-1dcb2b08a22e",
+    "name": "Login API Test",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "51604443",
+    "_collection_link": "https://go.postman.co/collection/51604443-fd21e6db-45b6-49b1-b69f-1dcb2b08a22e?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Login - obtain token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "var json = pm.response.json();",
+              "pm.test('Token exists', function () {",
+              "  pm.expect(json).to.have.property('token');",
+              "});",
+              "// Save token to env",
+              "pm.environment.set('auth_token', json.token);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"username\": \"{{username}}\", \"password\": \"{{password}}\"}"
+        },
+        "url": {
+          "raw": "{{base_url}}/login",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ]
+}

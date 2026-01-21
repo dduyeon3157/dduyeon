@@ -1,0 +1,90 @@
+{
+  "info": {
+    "_postman_id": "178b4474-a9fe-47c8-8ce6-1627bd8c4fca",
+    "name": "Item Grant API Test",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "51604443",
+    "_collection_link": "https://go.postman.co/collection/51604443-178b4474-a9fe-47c8-8ce6-1627bd8c4fca?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Grant Item to Player",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "const json = pm.response.json();",
+              "pm.test('Item grant success is true', function () {",
+              "  pm.expect(json.success).to.eql(true);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{auth_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"playerId\": \"player_001\", \"itemId\": \"potion_small\", \"amount\": 1}"
+        },
+        "url": {
+          "raw": "{{base_url}}/item/grant",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "item",
+            "grant"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{auth_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"playerId\": \"player_001\", \"itemId\": \"potion_small\", \"amount\": 1}"
+        },
+        "url": {
+          "raw": "{{base_url}}/item/grant",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "item",
+            "grant"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

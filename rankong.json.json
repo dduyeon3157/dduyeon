@@ -1,0 +1,73 @@
+{
+  "info": {
+    "_postman_id": "44ae7a0f-a1ad-4ddc-8c36-0edead627a97",
+    "name": "Ranking API Test",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "51604443",
+    "_collection_link": "https://go.postman.co/collection/51604443-44ae7a0f-a1ad-4ddc-8c36-0edead627a97?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Get Ranking - top 10",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "const json = pm.response.json();",
+              "pm.test('Array of players exists', function () {",
+              "  pm.expect(Array.isArray(json.players)).to.eql(true);",
+              "});",
+              "pm.test('Max 10 results', function () {",
+              "  pm.expect(json.players.length <= 10).to.eql(true);",
+              "});",
+              "pm.test('Each player has name and score', function () {",
+              "  json.players.forEach(p => {",
+              "    pm.expect(p).to.have.property('name');",
+              "    pm.expect(p).to.have.property('score');",
+              "  });",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/ranking?limit=10",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "ranking"
+          ],
+          "query": [
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ]
+}
